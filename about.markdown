@@ -18,5 +18,6 @@ into a god-knows-how-frequently-updated blog to post my ideas.
 
 Feel free to email me at `rafael@duckity.com` if you have something interesting to say.
 
+[Duckity]: https://duckity.com/
 [Payphone]: https://git.moan.dev/payphone/payphone
 [Nekos API]: https://nekosapi.com/
