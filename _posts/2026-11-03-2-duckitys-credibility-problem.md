@@ -22,4 +22,4 @@ About the problem more in detail, the landing page has a section that speaks abo
 but it does little to dive into any more details. Move that to the very top of my priority things
 to work on, it's getting tackled tomorrow first thing.
 
-[my last blog post]: /2026/11/03/four-hours-before-my-first-launch.html
+[my last blog post]: /2026/11/03/1-four-hours-before-my-first-launch.html
