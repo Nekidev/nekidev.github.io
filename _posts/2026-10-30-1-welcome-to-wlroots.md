@@ -43,5 +43,14 @@ those examples just don't work anymore.
 Feel free to raise an issue in [this blog's GitHub issues] if you notice any typos or other
 mistakes.
 
+---
+
+*Edited 07/11/2026 to add this ToC*
+
+- Part 1 (you're here)
+- [Part 2: Output Setup](/2026/11/04/1-welcome-to-wlroots-part-2.html)
+- [Part 3: Rendering XDG top-levels](/2026/11/07/1-welcome-to-wlroots-part-3.html)
+- [Part 4: Input handling](/2026/11/07/2-welcome-to-wlroots-part-4.html)
+
 [Drew Devault's blog]: https://drewdevault.com/blog/
 [this blog's GitHub issues]: https://github.com/Nekidev/nekidev.github.io

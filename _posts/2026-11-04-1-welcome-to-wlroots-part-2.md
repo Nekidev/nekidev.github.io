@@ -614,5 +614,14 @@ compositor. That'll require to implement XDG, which I haven't investigated in de
 If you have found any bugs in the code I showed, or have any suggestions, feel free to [open an
 issue in GitHub]. Good luck!
 
+---
+
+Edit 8/11/2026: I forgot to destroy output globals when the outputs get deleted. Add the following
+line before freeing a `nye_output`:
+
+```c
+wlr_output_destroy_global(nye_output->wlr_output);
+```
+
 [part 1 of this series]: /2026/10/30/1-welcome-to-wlroots
 [open an issue in GitHub]: https://github.com/Nekidev/nekidev.github.io
