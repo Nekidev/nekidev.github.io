@@ -25,6 +25,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${ubuntu.variable} ${ubuntuMono.variable} h-full antialiased`}
     >
+      <head>
+        <meta name="google-site-verification" content="dtIjAnaHE4hiPPGD54oAM9CoR1OOq2g5etGKFu3O5IU" />
+      </head>
       <body className="min-h-full flex flex-col items-center">
         <div className="w-full max-w-3xl py-8 px-4 text-stone-300 flex flex-row items-center justify-between">
           <Link href="/" className="text-xl">
