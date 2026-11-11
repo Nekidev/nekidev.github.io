@@ -28,7 +28,7 @@ export async function LayoutPost({ page }: { page: Page }) {
   return (
     <main className="prose prose-stone prose-invert max-w-none">
       <h1>{page.front.title!}</h1>
-      <div className="flex flex-row items-center gap-2 -mt-4 flex-wrap gap-y-0">
+      <div className="flex flex-row items-center gap-2 mb-8 -mt-4 flex-wrap gap-y-0">
         <div className="flex flex-row items-center gap-2 shrink-0 h-fit">
           <img
             src={blog.avatar}
@@ -47,7 +47,7 @@ export async function LayoutPost({ page }: { page: Page }) {
         </div>
       </div>
       {page.front.tags && (
-        <div className="flex flex-row items-center gap-2 pb-8 mt-4">
+        <div className="flex flex-row items-center gap-2 pb-8 -mt-4">
           {page.front.tags.map((tag, i) => (
             <div
               key={i}
