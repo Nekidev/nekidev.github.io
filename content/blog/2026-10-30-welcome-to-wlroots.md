@@ -1,12 +1,13 @@
 ---
+title: "Welcome to Wlroots! Part 1: Introduction"
 layout: post
-title: Welcome to Wlroots! Part 1
-author: Nyeki
+tags: [wlroots]
+spintag: wlroots
 ---
 
 So I ditched Arch Linux with Hyprland and moved to Ubuntu Desktop with Gnome Shell. People can say
-whatever about Ubuntu, in the end it has been a really smooth experience overall. However, I do
-have a bunch of complaints.
+whatever about Ubuntu, in the end it has been a really smooth experience overall. However, I do have
+a bunch of complaints.
 
 1. Some keybinds seem hardcoded into the compositor,
 2. The settings app's hotspot doesn't allow wifi + hotspot even when my network card supports it,
@@ -25,12 +26,12 @@ the wlroots docs are just a bunch of method lists, it's not a nice experience fo
 started.
 
 It's not impossible to get started with it, in fact it's quite easy. The only issue is the lack of
-docs, so here I am. Writing this for myself to learn as I go, and hopefully it becomes useful to
-you too.
+docs, so here I am. Writing this for myself to learn as I go, and hopefully it becomes useful to you
+too.
 
 It's worth noticing that at the time of writing this I have a compositor accepting connections but
-not doing anything useful with them, it just renders a black screen. I have not yet implemented
-XDG shell yet, though, so it makes sense stuff hasn't been rendering.
+not doing anything useful with them, it just renders a black screen. I have not yet implemented XDG
+shell yet, though, so it makes sense stuff hasn't been rendering.
 
 This is the first post of a bunch I'll be writing as notes for myself not to forget and better
 internalize what I learn. Also notice that I am a beginner to C as well, though I have experience
@@ -45,12 +46,13 @@ mistakes.
 
 ---
 
-*Edited 07/11/2026 to add this ToC*
+_Edited 07/11/2026 to add this ToC_
 
 - Part 1 (you're here)
-- [Part 2: Output Setup](/2026/11/04/1-welcome-to-wlroots-part-2.html)
-- [Part 3: Rendering XDG top-levels](/2026/11/07/1-welcome-to-wlroots-part-3.html)
-- [Part 4: Input handling](/2026/11/07/2-welcome-to-wlroots-part-4.html)
+- [Part 2: Setup and Outputs](/blog/welcome-to-wlroots-part-2)
+- [Part 3: Rendering Windows](/blog/welcome-to-wlroots-part-3)
+- [Part 4: Cursor Input](/blog/welcome-to-wlroots-part-4)
+- [Part 5: Keyboard Input](/blog/welcome-to-wlroots-part-5)
 
 [Drew Devault's blog]: https://drewdevault.com/blog/
 [this blog's GitHub issues]: https://github.com/Nekidev/nekidev.github.io

@@ -30,5 +30,3 @@ A bunch of projects of mine:
   requests a month.
 
 And everything else in my GitHub.
-
-<div style="height: 2rem;"></div>

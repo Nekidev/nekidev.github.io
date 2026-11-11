@@ -1,0 +1,21 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme inline {
+  --font-sans: var(--font-ubuntu);
+  --font-mono: var(--font-ubuntu-mono);
+  --color-background: var(--color-stone-900);
+  --color-foreground: var(--color-stone-100);
+  --color-code-type: var(--color-emerald-400);
+  --color-code-string: var(--color-green-400);
+  --color-code-comment: var(--color-stone-400);
+  --color-code-variable: var(--color-sky-300);
+  --color-code-keyword: var(--color-blue-400);
+  --color-code-function: var(--color-yellow-400);
+}
+
+body {
+  color: var(--color-foreground);
+  background: var(--color-background);
+  font-family: var(--font-sans);
+}

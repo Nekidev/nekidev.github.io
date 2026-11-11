@@ -1,7 +1,8 @@
 ---
-title: Welcome to Wlroots! Part 2
+title: "Welcome to Wlroots! Part 2: Setup and Outputs"
 layout: post
-author: Nyeki
+tags: [wlroots]
+spintag: wlroots
 ---
 
 Part two of the Welcome to Wlroots! series. If you haven't yet, you should go read the [part 1 of
@@ -64,8 +65,8 @@ Now that that's done, time to start building our compositor!
 
 ## Our First Compositor
 
-Every wayland and wlroots compositor has a `wl_display` ruling it all. It handles the event loop
-and incoming connections. Let's create one!
+Every wayland and wlroots compositor has a `wl_display` ruling it all. It handles the event loop and
+incoming connections. Let's create one!
 
 ```c
 #include <assert.h>
@@ -95,10 +96,10 @@ build:
 	clang src/main.c $(FLAGS)
 ```
 
-We use `pkg-config` to get the compiler flags needed to compile using our dependencies. Unlike
-other programming languages like Rust or Python, we don't get a nice manifest with dependencies in
-there, rather point the compiler to where those dependencies are in our system. `pkg-config` lets
-us do that dynamically instead of hardcoding values.
+We use `pkg-config` to get the compiler flags needed to compile using our dependencies. Unlike other
+programming languages like Rust or Python, we don't get a nice manifest with dependencies in there,
+rather point the compiler to where those dependencies are in our system. `pkg-config` lets us do
+that dynamically instead of hardcoding values.
 
 Back to our display, we're not accepting any incoming connections yet, though, so let's start it.
 Wayland connections come in through a socket, usually at `/run/user/1000/wayland-0` (replace 1000
@@ -120,11 +121,11 @@ Now yes, time to start our compositor.
 
 int main(void) {
     // -- snip --
-    
+
     // This env var lets clients know what socket to use to connect to the wayland compositor.
     setenv("WAYLAND_DISPLAY", "way-nyeki", true);
     wl_display_run(wl_display);
-    
+
     // Once the compositor is done running, disconnect everyone cleanly.
     wl_display_destroy_clients(wl_display);
     wl_display_destroy(wl_display);
@@ -140,10 +141,10 @@ It does nothing. But hey, it doesn't crash!
 
 Compositors are useless without rendering something, so let's get to rendering such something.
 
-Wlroots has a `wlr_backend` type which handles outputs and inputs. It supports 4 different
-backends: DRM (directly to your screen), libinput (we won't be touching inputs yet), wayland
-(rendering our wayland compositor inside another wayland compositor, as a window), and x11 (same as
-the wayland one but for x11).
+Wlroots has a `wlr_backend` type which handles outputs and inputs. It supports 4 different backends:
+DRM (directly to your screen), libinput (we won't be touching inputs yet), wayland (rendering our
+wayland compositor inside another wayland compositor, as a window), and x11 (same as the wayland one
+but for x11).
 
 Wlroots can automatically choose the backend we'll need, so we'll just do that. It requires a
 reference to the event loop, so we'll also grab it from our `wl_display`.
@@ -155,10 +156,10 @@ reference to the event loop, so we'll also grab it from our `wl_display`.
 int main(void) {
     // -- snip --
     assert(wl_display);
-    
+
     struct wl_event_loop *wl_event_loop = wl_display_get_event_loop(wl_display);
     assert(wl_event_loop);
-    
+
     // The NULL is a pointer to extra options. We don't need to pass any.
     struct wlr_backend *wlr_backend = wlr_backend_autocreate(wl_event_loop, NULL);
     assert(wlr_backend);
@@ -190,7 +191,7 @@ int main(void) {
 
     nye_server.wl_event_loop = wl_display_get_event_loop(nye_server.wl_display);
     assert(nye_server.wl_event_loop);
-    
+
     // The NULL is a pointer to extra options. We don't need to pass any.
     nye_server.wlr_backend = wlr_backend_autocreate(nye_server.wl_event_loop, NULL);
     assert(nye_server.wlr_backend);
@@ -206,13 +207,13 @@ Also update all references to those variables. Great.
 Now, before we can render something, there's a topic I have to introduce: Outputs. In your normal
 compositor-to-your-screen setup where the compositor is the one you're actually using (and not a
 nested one like we currently have), each output usually corresponds to a monitor. Since at the
-moment we're running out compositor nested inside another compositor, each output will correspond
-to a window our compositor has within the wayland compositor.
+moment we're running out compositor nested inside another compositor, each output will correspond to
+a window our compositor has within the wayland compositor.
 
 Our backend will fire an event for us to listen to when an output is created, and another one when
 that output is destroyed (window closed, monitor unplugged). Wlroots keeps some track of this
-internally, yet we'll also keep a reference to those output handles plus some state of ours to
-store extra state for our compositor.
+internally, yet we'll also keep a reference to those output handles plus some state of ours to store
+extra state for our compositor.
 
 The wayland library uses linked lists to store stuff, so we'll use those too. `wl_list` is the type
 used for nodes within them. Let's create one for our outputs, and also a wrapper output type.
@@ -257,7 +258,7 @@ Event listeners in wayland are wrapped in `wl_listner` types. We'll call ours
 
 struct nye_server {
     // -- snip --
-    
+
     struct wl_listener on_output_add;
 };
 
@@ -339,7 +340,7 @@ Wlroots makes this dead simple, starting with setting the mode:
 static void on_output_add(struct wl_listener *wl_listener, void *data) {
     // -- snip --
     wl_signal_add(&nye_server.wlr_backend->events.new_output, &nye_server.on_output_add);
-    
+
     struct wlr_output_state wlr_output_state;
     wlr_output_state_init(&wlr_output_state);
     wlr_output_state_set_enabled(&wlr_output_state, true);
@@ -366,12 +367,11 @@ And at the end of our handler function, we add this line to create the global:
 wlr_output_create_global(wlr_output, nye_server->wl_display);
 ```
 
-Great! This is a bit of code that won't produce any visible changes, but it's the foundation for
-our rendering in a minute.
+Great! This is a bit of code that won't produce any visible changes, but it's the foundation for our
+rendering in a minute.
 
 Last but not least, our code currently leaks memory. We store outputs when they're created, but we
-don't free that memory when an output is destroyed. Let's create a listener that takes care of
-that.
+don't free that memory when an output is destroyed. Let's create a listener that takes care of that.
 
 ```c
 struct nye_output {
@@ -412,8 +412,8 @@ In an unhappy world, we'd need to do OpenGL/Vulkan rendering by hand. Since this
 bright and full of love, though, wlroots gives us a nice API that handles all of the ugly part
 without us having to touch it.
 
-Wlroots's Scene API allows us to create a tree of nodes, which can be surfaces or rects, to draw
-on a screen without handling all the raw graphics ourselves. We create a `wlr_scene` for our whole
+Wlroots's Scene API allows us to create a tree of nodes, which can be surfaces or rects, to draw on
+a screen without handling all the raw graphics ourselves. We create a `wlr_scene` for our whole
 compositor, then one or more `wlr_scene_tree` to place our drawables in. For example, we could have
 a tree per monitor, or a tree per workspace, or even both combined.
 
@@ -488,7 +488,7 @@ static void on_output_del(struct wl_listener *wl_listener, void *) {
     wl_list_remove(&nye_output->link);
 
     wl_list_remove(&nye_output->on_frame.link);
-    
+
     wl_list_remove(&nye_output->on_output_del.link);
     // -- snip --
 }
@@ -506,15 +506,15 @@ static void on_output_add(struct wl_listener *wl_listener, void *data) {
 Now yes, once an output is created, `on_frame()` will start getting called every time we have to
 draw.
 
-NOW YES! Time for the part where we actually get something drawn on our screens. Our `on_frame`
-just needs to call `wlr_scene_output_commit()` and send done callbacks to clients when the frame is
-done being rendered.
+NOW YES! Time for the part where we actually get something drawn on our screens. Our `on_frame` just
+needs to call `wlr_scene_output_commit()` and send done callbacks to clients when the frame is done
+being rendered.
 
 ```c
 static void on_frame(struct wl_listener *wl_listener, void *) {
     // More black magic!
     struct nye_output *nye_output = wl_container_of(wl_listener, nye_output, on_frame);
-    
+
     // Draw everything our scene output has pending to the actual output.
     wlr_scene_output_commit(nye_output->wlr_scene_output, NULL);
 
@@ -599,14 +599,14 @@ int main(void) {
 }
 ```
 
-When you re-compile and re-run the compositor, you'll see that a 100x100 red sequare is now shown
-in the compositor's window.
+When you re-compile and re-run the compositor, you'll see that a 100x100 red sequare is now shown in
+the compositor's window.
 
 ## Exitting the Compositor
 
 You may have noticed that when you close the compositor's window instead of `Ctrl + C`-ing the
-program, the program will keep running. This is because the compositor doesn't depend on a window
-to be running. To exit the compositor, use `Ctrl + C` in your terminal.
+program, the program will keep running. This is because the compositor doesn't depend on a window to
+be running. To exit the compositor, use `Ctrl + C` in your terminal.
 
 That's it for now! The next part of this series will cover how to get apps to draw windows in our
 compositor. That'll require to implement XDG, which I haven't investigated in depth yet.

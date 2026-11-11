@@ -1,11 +1,12 @@
 ---
-title: Welcome to Wlroots! Part 4
+title: "Welcome to Wlroots! Part 4: Cursor Input"
 layout: post
-author: Nyeki
+tags: [wlroots]
+spintag: wlroots
 ---
 
-> This blog post is part of the [Welcome to Wlroots!](/2026/10/30/1-welcome-to-wlroots.html)
-> series. It works on code we've written in past blog posts.
+> This blog post is part of the [Welcome to Wlroots!](/2026/10/30/1-welcome-to-wlroots.html) series.
+> It works on code we've written in past blog posts.
 
 Input handling! In the last part of this series we got to rendering a very simple app on screen. I
 wanted to write about how to render XDG popups too, yet there's no quick way to test it out without
@@ -75,10 +76,10 @@ int main(void) {
 ```
 
 Something to keep in mind is that we can have multiple inputs of the same time attached at the same
-time. For example, someone could plug in two mouses and have a trackpad, or seven keyboards and
-type on any of them. For pointers, wlroots comes with the `wlr_cursor` struct which allows you to
-plug in pointer-moving inputs and get a single source of events for all of them. It'll also keep
-track of the cursor's position so we don't have to.
+time. For example, someone could plug in two mouses and have a trackpad, or seven keyboards and type
+on any of them. For pointers, wlroots comes with the `wlr_cursor` struct which allows you to plug in
+pointer-moving inputs and get a single source of events for all of them. It'll also keep track of
+the cursor's position so we don't have to.
 
 The input addition and removal is the same boilerplate as always. We `calloc()` and initialize our
 `nye_input`, then unlink and free on input removal. The special handling part of input devices is
@@ -143,8 +144,8 @@ static void on_input_add(struct wl_listener *wl_listener, void *data)
 That's practically the same code than the one we needed for `wlr_output` and `wlr_xdg_toplevel`, so
 we can skip re-explaining those.
 
-The interesting part is attaching our new input device to our `wlr_cursor` and detaching it when
-our device gets removed.
+The interesting part is attaching our new input device to our `wlr_cursor` and detaching it when our
+device gets removed.
 
 ```c
 static void on_input_del(struct wl_listener *wl_listener, void *data)
@@ -302,8 +303,8 @@ int main(void)
 }
 ```
 
-Now, this will be really nice if you have two monitors. If you're like me, who is in a laptop with
-a single monitor, this is just ugly code I have no chance but to implement properly. Fortunately,
+Now, this will be really nice if you have two monitors. If you're like me, who is in a laptop with a
+single monitor, this is just ugly code I have no chance but to implement properly. Fortunately,
 that's all we need to handle multi-monitor outputs for now, which is overall decently simple.
 
 Now, if you run the compositor with a single output, you'll notice nothing seems to have changed.
@@ -346,8 +347,8 @@ int main(void) {
 }
 ```
 
-Great! Now that those are done, if you recompile and run the compositor, you'll see a little red
-dot appears on the top left corner, but nothing happens if you move your mouse. Let's fix that.
+Great! Now that those are done, if you recompile and run the compositor, you'll see a little red dot
+appears on the top left corner, but nothing happens if you move your mouse. Let's fix that.
 
 ```c
 static void on_cursor_move(struct wl_listener *wl_listener, void *data)
@@ -372,8 +373,8 @@ static void on_cursor_move(struct wl_listener *wl_listener, void *data)
 
 Re-compile, re-render, and...
 
-It works! Now it's a good time to run the compositor with two outputs and see your cursor going
-from one "monitor" to the other when it goes out of one's screen to the other's.
+It works! Now it's a good time to run the compositor with two outputs and see your cursor going from
+one "monitor" to the other when it goes out of one's screen to the other's.
 
 Something interesting to check out is how each wayland window, each of our simulated monitors, gets
 its own pointer input device. You can watch them get deleted when you close one window but keep the
@@ -501,8 +502,8 @@ A `wl_seat`'s capabilties are bitflags. Capabilities are three:
 2. POINTER
 3. TOUCH
 
-As you may assume, the keyboard one is for keyboard events, the pointer one is for mouse events,
-and the touch one is for touchscreen events. Not every input device exposes a capability, in fact
+As you may assume, the keyboard one is for keyboard events, the pointer one is for mouse events, and
+the touch one is for touchscreen events. Not every input device exposes a capability, in fact
 tablets have their own protocol, so we'll skip them for now. Then in our `on_input_add()` and
 `on_input_del()`, we'll call our new function once we have updated our inputs list.
 
@@ -572,8 +573,8 @@ hovering, so `wlr_cursor->x/y` won't pull it off. `nx` and `ny` take care of tha
 Pointer events require a timestamp saying when the pointer event occurred, so we're letting the
 caller pass it as an argument.
 
-Now that we know what node, if any, is under the cursor, it's time to get the surface it
-corresponds to. In the wlroots scene API, the layers are like follows:
+Now that we know what node, if any, is under the cursor, it's time to get the surface it corresponds
+to. In the wlroots scene API, the layers are like follows:
 
 1. wlr_scene_node
 2. wlr_scene_buffer (same type as above, but made specific)
@@ -605,8 +606,8 @@ static void nye_input_pointer_move(struct nye_server *nye_server, uint32_t times
 }
 ```
 
-Our `wlr_surface` will be at `wlr_scene_surface->surface`, so we now have everything we need to
-send the pointer event to the window.
+Our `wlr_surface` will be at `wlr_scene_surface->surface`, so we now have everything we need to send
+the pointer event to the window.
 
 ```c
 if (wlr_scene_surface != NULL)
@@ -620,7 +621,7 @@ if (wlr_scene_surface != NULL)
         wlr_scene_surface->surface,
         nx,
         ny);
-    
+
     // We now let them know the pointer moved. Coordinates relative to the surface.
     wlr_seat_pointer_notify_motion(
         nye_server->wlr_seat,
@@ -634,8 +635,8 @@ if (wlr_scene_surface != NULL)
 }
 ```
 
-Now that our pointer-moving function is done, we can call it when our `on_cursor_move()` callback
-is fired.
+Now that our pointer-moving function is done, we can call it when our `on_cursor_move()` callback is
+fired.
 
 ```c
 static void on_cursor_move(struct wl_listener *wl_listener, void *data)
@@ -653,16 +654,16 @@ static void on_cursor_move(struct wl_listener *wl_listener, void *data)
 }
 ```
 
-Great! Re-compile the compositor, run it, and you'll see now your windows react to your cursor
-going over things! But you'll also likely have noticed the cursor does not show at the location
-apps think the cursor is. If you can't manage to get apps to react, your cursor is just likely way
-too off from the actual location. Let's fix that.
+Great! Re-compile the compositor, run it, and you'll see now your windows react to your cursor going
+over things! But you'll also likely have noticed the cursor does not show at the location apps think
+the cursor is. If you can't manage to get apps to react, your cursor is just likely way too off from
+the actual location. Let's fix that.
 
 This is where our `nye_input_pointer_move()` function comes in handy. We'll create an
-almost-identical-to-`on_cursor_move()` callback called `on_cursor_warp()` which will add support
-for teleporting the cursor. This is useful on touch screens, for example, and it'll also fix our
-cursor location errors since when running as a nested wayland client we also get absolute
-coordinate events via this callback on every movement.
+almost-identical-to-`on_cursor_move()` callback called `on_cursor_warp()` which will add support for
+teleporting the cursor. This is useful on touch screens, for example, and it'll also fix our cursor
+location errors since when running as a nested wayland client we also get absolute coordinate events
+via this callback on every movement.
 
 ```c
 struct nye_server
@@ -812,8 +813,8 @@ Compile again and you'll be able to click on stuff. Great!
 
 ## Forwarding Scroll
 
-Do I even need to explain how this one works? I think all I have to say ATP is to check out the
-axis event.
+Do I even need to explain how this one works? I think all I have to say ATP is to check out the axis
+event.
 
 ```c
 struct nye_server

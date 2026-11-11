@@ -1,7 +1,6 @@
 ---
 title: Launch Failed - What Went Wrong
 layout: post
-author: Nyeki
 ---
 
 Woke up at 10 AM to post in Hacker News, checked how the Product Hunt launch went.
@@ -22,8 +21,8 @@ me started before the next launch.
 
 I am getting clicks on /dev/null and twitter, and my cold emails got clicks too. Yet zero replies?
 Actually, my cold emails got the most clicks out of them all. When I wrote them by hand, obviously.
-The only opinion I got on Duckity beforehand was that they didn't know whether it worked, and
-that's a fair complaint. I'll be working on it as I said on my earlier blog posts.
+The only opinion I got on Duckity beforehand was that they didn't know whether it worked, and that's
+a fair complaint. I'll be working on it as I said on my earlier blog posts.
 
 Also, I'm thinking credibility may be that issue stopping people from answering my emails.
 

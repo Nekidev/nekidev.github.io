@@ -1,12 +1,13 @@
 ---
-title: Welcome to Wlroots! Part 3
+title: "Welcome to Wlroots! Part 3: Rendering Windows"
 layout: post
-author: Nyeki
+tags: [wlroots]
+spintag: wlroots
 ---
 
 This blog post is part of the Welcome to Wlroots! series I'm writing. In case you haven't yet, it's
-better if you go back to read [parts 1] and [2] of this series. This post develops on what we
-worked in those two.
+better if you go back to read [parts 1] and [2] of this series. This post develops on what we worked
+in those two.
 
 Rendering windows! Yes, now we're gonna be doing the fun part. In this post, we'll only be getting
 some windows on our screen, not input nor moving them around nor anything else yet.
@@ -17,8 +18,8 @@ still have no clue of how that'll work. We'll see on the go.
 
 ## Initializing XDG
 
-We currently have barely any globals set up. XDG requires one, so let's create it. The types for
-our global will mostly live under `wlr/types/wlr_xdg_shell.h`.
+We currently have barely any globals set up. XDG requires one, so let's create it. The types for our
+global will mostly live under `wlr/types/wlr_xdg_shell.h`.
 
 ```c
 #include <wlr/types/wlr_xdg_shell.h>
@@ -58,24 +59,24 @@ build:
 >
 > ```json
 > {
->   "configurations": [
->     {
->       "name": "Linux",
->       "includePath": [
->         "${workspaceFolder}/**",
->         "${workspaceFolder}/wayland",
->         "/usr/include/wlroots-0.19",
->         "/usr/include/pixman-1"
->       ],
->       "defines": [],
->       "cStandard": "c23",
->       "cppStandard": "c++23",
->       "intelliSenseMode": "linux-clang-x64",
->       "configurationProvider": "mesonbuild.mesonbuild",
->       "compilerPath": "/usr/bin/clang"
->     }
->   ],
->   "version": 4
+>     "configurations": [
+>         {
+>             "name": "Linux",
+>             "includePath": [
+>                 "${workspaceFolder}/**",
+>                 "${workspaceFolder}/wayland",
+>                 "/usr/include/wlroots-0.19",
+>                 "/usr/include/pixman-1"
+>             ],
+>             "defines": [],
+>             "cStandard": "c23",
+>             "cppStandard": "c++23",
+>             "intelliSenseMode": "linux-clang-x64",
+>             "configurationProvider": "mesonbuild.mesonbuild",
+>             "compilerPath": "/usr/bin/clang"
+>         }
+>     ],
+>     "version": 4
 > }
 > ```
 
@@ -103,9 +104,9 @@ int main(void) {
 
 A note on the version, we're using number 6 even when the latest version is number 7 because
 `wlroots-0.19` does not come with support for number 7. At the time of writing, `wlroots-0.20` is
-already available with support for the latest version. I have not checked it out, it may work out
-of the box but you may have to do some investigation on your own to see if anything has changed in
-the code we're using here.
+already available with support for the latest version. I have not checked it out, it may work out of
+the box but you may have to do some investigation on your own to see if anything has changed in the
+code we're using here.
 
 Now that we're creating our second global, it's a good time to welcome in `wayland-info`.
 `wayland-info` is a linux command that lets us inspect the globals our compositor exposes. It comes
@@ -126,18 +127,17 @@ interface: 'wl_output',                                  version:  4, name:  2
                 flags: current
 ```
 
-As you can see, we only expose two globals. Our output shows a 0.000 Hz refresh rate because
-nested Wayland outputs don't have modes. In a real DRM monitor, you'll see your monitor's actual
-values.
+As you can see, we only expose two globals. Our output shows a 0.000 Hz refresh rate because nested
+Wayland outputs don't have modes. In a real DRM monitor, you'll see your monitor's actual values.
 
 ## More Globals
 
 We'll start by handling top-level windows. They're called top-levels because they're the highest in
 the window hierarchy. Popups and dropdown menus will always be children of a top-level.
 
-Top-levels and popups are just wrappers over a surface. They get extra methods to call and events
-to receive based on the role (top-level and popups are "roles") the surface has. E.g. you can
-request to full-screen a top-level, but not a popup.
+Top-levels and popups are just wrappers over a surface. They get extra methods to call and events to
+receive based on the role (top-level and popups are "roles") the surface has. E.g. you can request
+to full-screen a top-level, but not a popup.
 
 Same as we did with our outputs, we'll listen for new window events and add them to our scene.
 
@@ -177,8 +177,7 @@ transport way more efficient than by making a copy of all pixel data and sending
 connection directly. There are also other globals that do similar things, like Linux's dmabuf (for
 rendering on the GPU instead of on the CPU).
 
-Fortunately, initializing `wl_shm` is as simple as calling a function on our display. Let's do
-that.
+Fortunately, initializing `wl_shm` is as simple as calling a function on our display. Let's do that.
 
 ```c
 // -- snip --
@@ -191,11 +190,10 @@ int main(void) {
 }
 ```
 
-Again, the `wl_shm` global's latest version at the time of writing is number 3. However, we're
-using `wlroots-0.19` which does not have support for that version, so we use number 2 instead.
+Again, the `wl_shm` global's latest version at the time of writing is number 3. However, we're using
+`wlroots-0.19` which does not have support for that version, so we use number 2 instead.
 
-Now, let's re-compile and rerun our compositor. Also run `weston-simple-shm` in a separate
-terminal.
+Now, let's re-compile and rerun our compositor. Also run `weston-simple-shm` in a separate terminal.
 
 ```
 $ WAYLAND_DISPLAY=way-nyeki weston-simple-shm
@@ -259,9 +257,9 @@ int main(void) {
 You guessed right! The latest version of `wl_compositor` is 7, but `wlroots-0.19`, so we use number
 6 instead.
 
-Once that's done, we can recompile and check `weston-simple-shm`'s logs again. The first part of
-the logs is almost identical. The only difference is that now it displays our new `wl_compositor`
-global too. The interesting part is what happens where we got a segfault before.
+Once that's done, we can recompile and check `weston-simple-shm`'s logs again. The first part of the
+logs is almost identical. The only difference is that now it displays our new `wl_compositor` global
+too. The interesting part is what happens where we got a segfault before.
 
 ```
 $ WAYLAND_DEBUG=1 WAYLAND_DISPLAY=way-nyeki weston-simple-shm
@@ -325,10 +323,10 @@ Next, we'll have to create and store our new wrappers in the `nye_xdg_toplevel` 
 
 XDG surfaces have a little handshake before they can be rendered on the screen. They use this to
 send the compositor their initial properties, such as app name and window title, and to send their
-*ideal* properties, such as size. Size is ideal because the app may want to have a specific size,
+_ideal_ properties, such as size. Size is ideal because the app may want to have a specific size,
 but it's ultimately on the compositor to decide what size it actually gets. When the compositor is
-done setting all those properties, it sends a `configure` event, the client acknowledges it, and
-the rendering starts.
+done setting all those properties, it sends a `configure` event, the client acknowledges it, and the
+rendering starts.
 
 XDG surfaces work by sending over pending changes to the compositor and then committing them with a
 `commit()` call. The flow is more or less like this:
@@ -342,8 +340,8 @@ XDG surfaces work by sending over pending changes to the compositor and then com
 6. The client acknowledges that configuration
 7. The client starts rendering
 
-First, let's handle adding and removing the XDG toplevels from our server's list to be done with
-the boilerplate.
+First, let's handle adding and removing the XDG toplevels from our server's list to be done with the
+boilerplate.
 
 ```c
 static void on_xdg_toplevel_del(struct wl_listener *wl_listener, void *)
@@ -407,8 +405,8 @@ static void on_xdg_toplevel_add(struct wl_listener *wl_listener, void *data)
 
 ## 🤝
 
-`wlr_scene` won't send the initial configuration to the client, so it won't render anything until
-we handle the handshake ourselves. This part is easy, we'll just tell the client to choose its own
+`wlr_scene` won't send the initial configuration to the client, so it won't render anything until we
+handle the handshake ourselves. This part is easy, we'll just tell the client to choose its own
 size.
 
 Configuration events get fired after the client sends its first commit, so let's wait for it first.
@@ -435,7 +433,7 @@ static void on_xdg_toplevel_del(struct wl_listener *wl_listener, void *)
 static void on_xdg_toplevel_add(struct wl_listener *wl_listener, void *data)
 {
     // -- snip --
-    
+
     nye_xdg_toplevel->on_xdg_surface_commit.notify = on_xdg_surface_commit;
     wl_signal_add(&wlr_xdg_toplevel->base->surface->events.commit, &nye_xdg_toplevel->on_xdg_surface_commit);
 

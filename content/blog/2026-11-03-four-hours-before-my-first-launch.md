@@ -1,15 +1,14 @@
 ---
 title: Four Hours Before my First Launch
 layout: post
-author: Nyeki
 ---
 
 Today I finished my application to YC. Took me two days and a bunch of attempts to get the founder
 video right since my spoken English needed some practice, yet after actually following the bullet
 point thing YC tells you to do it was way easier.
 
-I also made the Product Hunt launch draft for [Duckity] for tomorrow (actually today, it's 12:31
-AM) and attempted at doing the same with TinyLaunch but their site was broken. I'll wake up early
+I also made the Product Hunt launch draft for [Duckity] for tomorrow (actually today, it's 12:31 AM)
+and attempted at doing the same with TinyLaunch but their site was broken. I'll wake up early
 tomorrow to post it in Hacker News and upload it to all the other sites in the list that I did not
 put Duckity in today. I also started writing about it in my new [/dev/null account].
 
@@ -22,8 +21,8 @@ instead of making people configure things from scratch.
 I have a little amount of worries about things, but none is going to stop me from launching as many
 times as I need to launch, each time improving from the past time.
 
-There's not that much to write in my head today, only that I really hope I get that YC interview
-but that I'll be working like there's no YC in the meantime. My plan for the next few days:
+There's not that much to write in my head today, only that I really hope I get that YC interview but
+that I'll be working like there's no YC in the meantime. My plan for the next few days:
 
 - Launch on Product Hunt
 - Launch on Hacker News
@@ -34,8 +33,8 @@ but that I'll be working like there's no YC in the meantime. My plan for the nex
 
 Also, I was feeling this anxiety I could not tell what was. I was feeling like I was less because I
 saw all those guys (Garry Tan and friends) being so successful and having done so much and doing so
-well and knowing so much and that demotivated me, but I realized that them having that knowledge
-and experience doesn't mean I can't have it too. Anxiety vanished.
+well and knowing so much and that demotivated me, but I realized that them having that knowledge and
+experience doesn't mean I can't have it too. Anxiety vanished.
 
 I'm also thinking of more and more things to scale Duckity. These will include:
 
@@ -47,12 +46,12 @@ I'm also thinking of more and more things to scale Duckity. These will include:
 - A bunch of templates to pick from,
 - A default basic policy when creating apps
 
-They're not listed in order of importance. Also, the Duckity pro pricing is listed at $49/mo yet
-I'm worried that's too high for a developer tool, so I gave the Product Hunt launch an 80% discount
-code for the first 100 users (holy discount innit) for the first 6 months.
+They're not listed in order of importance. Also, the Duckity pro pricing is listed at $49/mo yet I'm
+worried that's too high for a developer tool, so I gave the Product Hunt launch an 80% discount code
+for the first 100 users (holy discount innit) for the first 6 months.
 
-I'm looking forward to making everything go great! First launch of as many as needed. Good luck
-with whatever you're building!
+I'm looking forward to making everything go great! First launch of as many as needed. Good luck with
+whatever you're building!
 
 [Duckity]: https://duckity.com/
 [/dev/null account]: https://dev-null.sh/@Nekidev
