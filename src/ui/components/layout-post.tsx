@@ -49,7 +49,10 @@ export async function LayoutPost({ page }: { page: Page }) {
       {page.front.tags && (
         <div className="flex flex-row items-center gap-2 -mt-4 pb-8">
           {page.front.tags.map((tag, i) => (
-            <div key={i} className="bg-stone-800 px-2 rounded text-stone-400 flex flex-row items-center gap-1">
+            <div
+              key={i}
+              className="bg-stone-800 px-2 rounded text-stone-400 flex flex-row items-center gap-1"
+            >
               <HashIcon className="size-4" />
               {tag}
             </div>
@@ -58,27 +61,23 @@ export async function LayoutPost({ page }: { page: Page }) {
       )}
       {page.content}
       <hr />
-      <div className="grid grid-cols-2 gap-8">
-        <div>
-          {index != 0 && index !== undefined && (
-            <>
-              <div className="opacity-50">Previous post</div>
-              <Link href={"/" + pages[index - 1].slug}>
-                {pages[index - 1].front.title}
-              </Link>
-            </>
-          )}
-        </div>
-        <div className="text-right">
-          {index != pages.length - 1 && index !== undefined && (
-            <>
-              <div className="opacity-50">Next post</div>
-              <Link href={"/" + pages[index + 1].slug}>
-                {pages[index + 1].front.title}
-              </Link>
-            </>
-          )}
-        </div>
+      <div className="flex flex-col sm:flex-row gap-8">
+        {index != 0 && index !== undefined && (
+          <div className="flex-1 shrink-0">
+            <div className="opacity-50">Previous post</div>
+            <Link href={"/" + pages[index - 1].slug}>
+              {pages[index - 1].front.title}
+            </Link>
+          </div>
+        )}
+        {index != pages.length - 1 && index !== undefined && (
+          <div className="flex-1 shrink-0 sm:text-right">
+            <div className="opacity-50">Next post</div>
+            <Link href={"/" + pages[index + 1].slug}>
+              {pages[index + 1].front.title}
+            </Link>
+          </div>
+        )}
       </div>
     </main>
   );
