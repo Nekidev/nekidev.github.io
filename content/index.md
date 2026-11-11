@@ -28,5 +28,14 @@ A bunch of projects of mine:
   bot. with 30K MAU at the time of shutdown.
 - [Nekos API](https://nekosapi.com): Developed it when I was 16, still serves up to a few million
   requests a month.
+- [Duckity](https://duckity.com): Abuse protection for software. I'm currently working on making
+  honeypots to collect more abuse data.
+- [Nye](https://github.com/nekidev/nye): A Linux package manager and operating system focused on
+  system tidiness.
+- [dyncord](https://docs.rs/dyncord): Make Discord bots in Rust with an Axum-like API.
 
-And everything else in my GitHub.
+And everything else in my GitHub. If you like my stuff, please [consider donating]! I'll use that
+money for domain names, hosting, and GTA IV. Feel free to email me if you have something
+interesting to say (please no pitches).
+
+[consider donating]: https://ko-fi.com/nyeki
