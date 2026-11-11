@@ -26,7 +26,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${ubuntu.variable} ${ubuntuMono.variable} h-full antialiased`}
     >
       <head>
-        <meta name="google-site-verification" content="dtIjAnaHE4hiPPGD54oAM9CoR1OOq2g5etGKFu3O5IU" />
+        <meta
+          name="google-site-verification"
+          content="dtIjAnaHE4hiPPGD54oAM9CoR1OOq2g5etGKFu3O5IU"
+        />
+        <script
+          defer
+          src="https://cloud.umami.is/script.js"
+          data-website-id="bfdb12b8-7c9a-47e3-bd42-18dee97bfd30"
+        ></script>
       </head>
       <body className="min-h-full flex flex-col items-center">
         <div className="w-full max-w-3xl py-8 px-4 text-stone-300 flex flex-row items-center justify-between">
