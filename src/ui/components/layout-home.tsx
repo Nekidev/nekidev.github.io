@@ -17,11 +17,11 @@ export async function LayoutHome({ page }: { page: Page }) {
           .sort((a, b) => b.date!.getTime() - a.date!.getTime())
           .map((page, i) => (
             <li key={i}>
-              <div className="flex flex-row gap-2">
+              <div>
                 <div className="inline-block opacity-50">
                   {dateFormatter.format(page.date)}
                 </div>
-                <Link href={page.slug}>{page.front.title}</Link>
+                <Link href={page.slug} className="inline ml-2">{page.front.title}</Link>
               </div>
             </li>
           ))}
