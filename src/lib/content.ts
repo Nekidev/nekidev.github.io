@@ -10,6 +10,7 @@ import * as runtime from "react/jsx-runtime";
 import { ReactNode } from "react";
 import rehypeShiki from "@shikijs/rehype";
 import theme from "./highlighting";
+import remarkGfm from "remark-gfm";
 
 export type Layout = "post" | "page" | "home";
 
@@ -37,6 +38,7 @@ export async function getPages(): Promise<Page[]> {
   const processor = unified()
     .use(remarkParse)
     .use(remarkFrontmatter)
+    .use(remarkGfm)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeShiki, {
       theme,
