@@ -7,11 +7,13 @@ import Link from "next/link";
 const ubuntu = Ubuntu({
   variable: "--font-ubuntu",
   weight: ["400", "700"],
+  preload: true,
 });
 
 const ubuntuMono = Ubuntu_Mono({
   variable: "--font-ubuntu-mono",
   weight: ["400", "700"],
+  preload: true,
 });
 
 export const metadata: Metadata = {
