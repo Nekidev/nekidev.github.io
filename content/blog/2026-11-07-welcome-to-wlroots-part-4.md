@@ -101,8 +101,8 @@ struct nye_server
 
 int main(void) {
     // -- snip --
-    struct wlr_cursor *wlr_cursor = wlr_cursor_create();
-    assert(wlr_cursor);
+    nye_server.wlr_cursor = wlr_cursor_create();
+    assert(nye_server.wlr_cursor);
     // -- snip --
 }
 ```
@@ -427,6 +427,7 @@ int main(void) {
     wl_signal_add(&nye_server.wlr_cursor->events.motion, &nye_server.on_cursor_move);
 
     nye_server.wlr_xcursor_manager = wlr_xcursor_manager_create(NULL, 24);
+    wlr_xcursor_manager_load(nye_server.wlr_xcursor_manager, 1.0f); // here the second argument is the scale factor
     wlr_cursor_set_xcursor(nye_server.wlr_cursor, nye_server.wlr_xcursor_manager, "default");
 
     nye_server.wlr_seat = wlr_seat_create(nye_server.wl_display, "default");
@@ -856,3 +857,12 @@ int main(void) {
 
 That's it for now! The next part will handle keyboard input. It'll be more of the same, so you can
 start playing with `wlr_keyboard` already. Good luck!
+
+------
+
+*Edit 20/11/26**
+
+Thanks to [nitinbhat972](https://github.com/nitinbhat972) for the xcursor init corrections!
+
+- [#1: wlroots part 4 wrong wlr_cursor initialization](https://github.com/Nekidev/nekidev.github.io/issues/1)
+- [#2: Missing loading xcursor manager.](https://github.com/Nekidev/nekidev.github.io/issues/2)
